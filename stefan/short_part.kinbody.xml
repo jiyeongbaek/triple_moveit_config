@@ -1,0 +1,8 @@
+<KinBody name="stefan_short_part">
+  <Body type="dynamic"> 
+    <Geom type="trimesh">
+      <Data>short_part.dae 0.001</Data>
+      <Render>short_part.dae 0.001</Render>
+    </Geom>
+  </Body>
+</KinBody>

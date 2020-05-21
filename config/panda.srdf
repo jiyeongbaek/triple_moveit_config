@@ -1,0 +1,482 @@
+<?xml version="1.0" ?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="panda">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="panda_1">
+        <link name="panda_1_link0" />
+        <link name="panda_1_link1" />
+        <link name="panda_1_link2" />
+        <link name="panda_1_link3" />
+        <link name="panda_1_link4" />
+        <link name="panda_1_link5" />
+        <link name="panda_1_link6" />
+        <link name="panda_1_link7" />
+        <link name="panda_1_link8" />
+        <link name="panda_1_hand" />
+        <joint name="panda_1_joint1" />
+        <joint name="panda_1_joint2" />
+        <joint name="panda_1_joint3" />
+        <joint name="panda_1_joint4" />
+        <joint name="panda_1_joint5" />
+        <joint name="panda_1_joint6" />
+        <joint name="panda_1_joint7" />
+        <joint name="panda_1_joint8" />
+    </group>
+    <group name="panda_2">
+        <link name="panda_2_link0" />
+        <link name="panda_2_link1" />
+        <link name="panda_2_link2" />
+        <link name="panda_2_link3" />
+        <link name="panda_2_link4" />
+        <link name="panda_2_link5" />
+        <link name="panda_2_link6" />
+        <link name="panda_2_link7" />
+        <link name="panda_2_link8" />
+        <link name="panda_2_hand" />
+        <joint name="panda_2_joint1" />
+        <joint name="panda_2_joint2" />
+        <joint name="panda_2_joint3" />
+        <joint name="panda_2_joint4" />
+        <joint name="panda_2_joint6" />
+        <joint name="panda_2_joint5" />
+        <joint name="panda_2_joint7" />
+        <joint name="panda_2_joint8" />
+    </group>
+    <group name="hand_1">
+        <link name="panda_1_hand" />
+        <link name="panda_1_leftfinger" />
+        <link name="panda_1_rightfinger" />
+        <joint name="panda_1_finger_joint1" />
+        <joint name="panda_1_finger_joint2" />
+    </group>
+    <group name="hand_closed_chain">
+        <group name="hand_1" />
+        <group name="hand_3" />
+    </group>
+    <group name="panda_3">
+        <link name="panda_3_link0" />
+        <link name="panda_3_link1" />
+        <link name="panda_3_link2" />
+        <link name="panda_3_link3" />
+        <link name="panda_3_link4" />
+        <link name="panda_3_link5" />
+        <link name="panda_3_link6" />
+        <link name="panda_3_link7" />
+        <link name="panda_3_link8" />
+        <link name="panda_3_hand" />
+        <joint name="panda_3_joint1" />
+        <joint name="panda_3_joint2" />
+        <joint name="panda_3_joint4" />
+        <joint name="panda_3_joint3" />
+        <joint name="panda_3_joint5" />
+        <joint name="panda_3_joint6" />
+        <joint name="panda_3_joint7" />
+        <joint name="panda_3_joint8" />
+    </group>
+    <group name="panda_closed_chain">
+        <group name="panda_1" />
+        <group name="panda_3" />
+    </group>
+    <group name="hand_2">
+        <link name="panda_2_hand" />
+        <link name="panda_2_leftfinger" />
+        <link name="panda_2_rightfinger" />
+        <joint name="panda_2_finger_joint1" />
+        <joint name="panda_2_finger_joint2" />
+    </group>
+    <group name="hand_3">
+        <link name="panda_3_hand" />
+        <link name="panda_3_leftfinger" />
+        <link name="panda_3_rightfinger" />
+        <joint name="panda_3_finger_joint1" />
+        <joint name="panda_3_finger_joint2" />
+    </group>
+    <group name="panda_chair_up">
+        <group name="panda_2" />
+        <group name="panda_3" />
+    </group>
+    <group name="hand_chair_up">
+        <group name="hand_2" />
+        <group name="hand_3" />
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="init_pose_left" group="panda_1" />
+    <group_state name="init_pose_right" group="panda_2" />
+    <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
+    <end_effector name="hand_1" parent_link="panda_1_link8" group="hand_1" />
+    <end_effector name="hand_2" parent_link="panda_2_link8" group="hand_2" />
+    <end_effector name="hand_3" parent_link="panda_3_link8" group="hand_3" />
+    <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
+    <virtual_joint name="world" type="fixed" parent_frame="world" child_link="base" />
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="base" link2="panda_1_link0" reason="Adjacent" />
+    <disable_collisions link1="base" link2="panda_1_link1" reason="Default" />
+    <disable_collisions link1="base" link2="panda_1_link2" reason="Never" />
+    <disable_collisions link1="base" link2="panda_1_link3" reason="Never" />
+    <disable_collisions link1="base" link2="panda_1_link4" reason="Never" />
+    <disable_collisions link1="base" link2="panda_2_link0" reason="Adjacent" />
+    <disable_collisions link1="base" link2="panda_2_link1" reason="Default" />
+    <disable_collisions link1="base" link2="panda_2_link2" reason="Never" />
+    <disable_collisions link1="base" link2="panda_2_link3" reason="Never" />
+    <disable_collisions link1="base" link2="panda_2_link4" reason="Never" />
+    <disable_collisions link1="base" link2="panda_3_link0" reason="Adjacent" />
+    <disable_collisions link1="base" link2="panda_3_link1" reason="Default" />
+    <disable_collisions link1="base" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="base" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="base" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_1_hand" link2="panda_1_leftfinger" reason="Adjacent" />
+    <disable_collisions link1="panda_1_hand" link2="panda_1_link4" reason="Never" />
+    <disable_collisions link1="panda_1_hand" link2="panda_1_link6" reason="Never" />
+    <disable_collisions link1="panda_1_hand" link2="panda_1_link7" reason="Adjacent" />
+    <disable_collisions link1="panda_1_hand" link2="panda_1_rightfinger" reason="Adjacent" />
+    <disable_collisions link1="panda_1_hand" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_1_hand" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_1_hand" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_1_hand" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_1_hand" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_1_hand" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_1_hand" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_1_hand" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_1_hand" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_1_hand" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_1_hand" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_1_leftfinger" link2="panda_1_link4" reason="Never" />
+    <disable_collisions link1="panda_1_leftfinger" link2="panda_1_link6" reason="Never" />
+    <disable_collisions link1="panda_1_leftfinger" link2="panda_1_link7" reason="Never" />
+    <disable_collisions link1="panda_1_leftfinger" link2="panda_1_rightfinger" reason="Default" />
+    <disable_collisions link1="panda_1_leftfinger" link2="panda_2_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_1_leftfinger" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_1_leftfinger" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_1_leftfinger" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_1_leftfinger" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_1_leftfinger" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_1_leftfinger" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_1_leftfinger" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_1_leftfinger" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_1_leftfinger" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_1_leftfinger" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_1_leftfinger" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_1_link0" link2="panda_1_link1" reason="Adjacent" />
+    <disable_collisions link1="panda_1_link0" link2="panda_1_link2" reason="Never" />
+    <disable_collisions link1="panda_1_link0" link2="panda_1_link3" reason="Never" />
+    <disable_collisions link1="panda_1_link0" link2="panda_1_link4" reason="Never" />
+    <disable_collisions link1="panda_1_link0" link2="panda_2_link0" reason="Never" />
+    <disable_collisions link1="panda_1_link0" link2="panda_2_link1" reason="Never" />
+    <disable_collisions link1="panda_1_link0" link2="panda_2_link2" reason="Never" />
+    <disable_collisions link1="panda_1_link0" link2="panda_2_link3" reason="Never" />
+    <disable_collisions link1="panda_1_link0" link2="panda_2_link4" reason="Never" />
+    <disable_collisions link1="panda_1_link0" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_1_link0" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_1_link0" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_1_link0" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_1_link0" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_1_link0" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_1_link0" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_1_link0" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_1_link0" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_1_link0" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_1_link0" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_1_link1" link2="panda_1_link2" reason="Adjacent" />
+    <disable_collisions link1="panda_1_link1" link2="panda_1_link3" reason="Default" />
+    <disable_collisions link1="panda_1_link1" link2="panda_1_link4" reason="Never" />
+    <disable_collisions link1="panda_1_link1" link2="panda_2_link0" reason="Never" />
+    <disable_collisions link1="panda_1_link1" link2="panda_2_link1" reason="Never" />
+    <disable_collisions link1="panda_1_link1" link2="panda_2_link2" reason="Never" />
+    <disable_collisions link1="panda_1_link1" link2="panda_2_link3" reason="Never" />
+    <disable_collisions link1="panda_1_link1" link2="panda_2_link4" reason="Never" />
+    <disable_collisions link1="panda_1_link1" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_1_link1" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_1_link1" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_1_link1" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_1_link1" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_1_link1" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_1_link1" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_1_link1" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_1_link1" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_1_link1" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_1_link1" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_1_link2" link2="panda_1_link3" reason="Adjacent" />
+    <disable_collisions link1="panda_1_link2" link2="panda_1_link4" reason="Never" />
+    <disable_collisions link1="panda_1_link2" link2="panda_2_link0" reason="Never" />
+    <disable_collisions link1="panda_1_link2" link2="panda_2_link1" reason="Never" />
+    <disable_collisions link1="panda_1_link2" link2="panda_2_link2" reason="Never" />
+    <disable_collisions link1="panda_1_link2" link2="panda_2_link3" reason="Never" />
+    <disable_collisions link1="panda_1_link2" link2="panda_2_link4" reason="Never" />
+    <disable_collisions link1="panda_1_link2" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_1_link2" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_1_link2" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_1_link2" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_1_link2" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_1_link2" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_1_link2" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_1_link2" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_1_link2" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_1_link2" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_1_link2" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_1_link3" link2="panda_1_link4" reason="Adjacent" />
+    <disable_collisions link1="panda_1_link3" link2="panda_1_link6" reason="Never" />
+    <disable_collisions link1="panda_1_link3" link2="panda_1_link7" reason="Never" />
+    <disable_collisions link1="panda_1_link3" link2="panda_2_link0" reason="Never" />
+    <disable_collisions link1="panda_1_link3" link2="panda_2_link1" reason="Never" />
+    <disable_collisions link1="panda_1_link3" link2="panda_2_link2" reason="Never" />
+    <disable_collisions link1="panda_1_link3" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_1_link3" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_1_link3" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_1_link3" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_1_link3" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_1_link3" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_1_link3" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_1_link3" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_1_link3" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_1_link3" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_1_link3" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_1_link4" link2="panda_1_link5" reason="Adjacent" />
+    <disable_collisions link1="panda_1_link4" link2="panda_1_link6" reason="Never" />
+    <disable_collisions link1="panda_1_link4" link2="panda_1_link7" reason="Never" />
+    <disable_collisions link1="panda_1_link4" link2="panda_1_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_1_link4" link2="panda_2_link0" reason="Never" />
+    <disable_collisions link1="panda_1_link4" link2="panda_2_link1" reason="Never" />
+    <disable_collisions link1="panda_1_link4" link2="panda_2_link2" reason="Never" />
+    <disable_collisions link1="panda_1_link4" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_1_link4" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_1_link4" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_1_link4" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_1_link4" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_1_link4" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_1_link4" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_1_link4" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_1_link4" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_1_link4" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_1_link4" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_1_link5" link2="panda_1_link6" reason="Adjacent" />
+    <disable_collisions link1="panda_1_link5" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_1_link5" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_1_link5" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_1_link5" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_1_link5" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_1_link5" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_1_link5" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_1_link5" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_1_link5" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_1_link5" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_1_link5" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_1_link6" link2="panda_1_link7" reason="Adjacent" />
+    <disable_collisions link1="panda_1_link6" link2="panda_1_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_1_link6" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_1_link6" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_1_link6" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_1_link6" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_1_link6" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_1_link6" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_1_link6" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_1_link6" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_1_link6" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_1_link6" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_1_link6" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_1_link7" link2="panda_1_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_1_link7" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_1_link7" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_1_link7" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_1_link7" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_1_link7" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_1_link7" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_1_link7" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_1_link7" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_1_link7" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_1_link7" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_1_link7" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_1_rightfinger" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_1_rightfinger" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_1_rightfinger" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_1_rightfinger" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_1_rightfinger" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_1_rightfinger" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_1_rightfinger" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_1_rightfinger" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_1_rightfinger" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_1_rightfinger" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_1_rightfinger" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_2_hand" link2="panda_2_leftfinger" reason="Adjacent" />
+    <disable_collisions link1="panda_2_hand" link2="panda_2_link4" reason="Never" />
+    <disable_collisions link1="panda_2_hand" link2="panda_2_link6" reason="Never" />
+    <disable_collisions link1="panda_2_hand" link2="panda_2_link7" reason="Adjacent" />
+    <disable_collisions link1="panda_2_hand" link2="panda_2_rightfinger" reason="Adjacent" />
+    <disable_collisions link1="panda_2_hand" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_2_hand" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_2_hand" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_2_hand" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_2_hand" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_2_hand" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_2_hand" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_2_hand" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_2_hand" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_2_hand" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_2_hand" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_2_leftfinger" link2="panda_2_link4" reason="Never" />
+    <disable_collisions link1="panda_2_leftfinger" link2="panda_2_link6" reason="Never" />
+    <disable_collisions link1="panda_2_leftfinger" link2="panda_2_link7" reason="Never" />
+    <disable_collisions link1="panda_2_leftfinger" link2="panda_2_rightfinger" reason="Default" />
+    <disable_collisions link1="panda_2_leftfinger" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_2_leftfinger" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_2_leftfinger" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_2_leftfinger" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_2_leftfinger" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_2_leftfinger" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_2_leftfinger" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_2_leftfinger" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_2_leftfinger" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_2_leftfinger" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_2_leftfinger" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_2_link0" link2="panda_2_link1" reason="Adjacent" />
+    <disable_collisions link1="panda_2_link0" link2="panda_2_link2" reason="Never" />
+    <disable_collisions link1="panda_2_link0" link2="panda_2_link3" reason="Never" />
+    <disable_collisions link1="panda_2_link0" link2="panda_2_link4" reason="Never" />
+    <disable_collisions link1="panda_2_link0" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_2_link0" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_2_link0" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_2_link0" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_2_link0" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_2_link0" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_2_link0" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_2_link0" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_2_link0" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_2_link0" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_2_link0" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_2_link1" link2="panda_2_link2" reason="Adjacent" />
+    <disable_collisions link1="panda_2_link1" link2="panda_2_link3" reason="Default" />
+    <disable_collisions link1="panda_2_link1" link2="panda_2_link4" reason="Never" />
+    <disable_collisions link1="panda_2_link1" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_2_link1" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_2_link1" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_2_link1" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_2_link1" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_2_link1" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_2_link1" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_2_link1" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_2_link1" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_2_link1" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_2_link1" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_2_link2" link2="panda_2_link3" reason="Adjacent" />
+    <disable_collisions link1="panda_2_link2" link2="panda_2_link4" reason="Never" />
+    <disable_collisions link1="panda_2_link2" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_2_link2" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_2_link2" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_2_link2" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_2_link2" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_2_link2" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_2_link2" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_2_link2" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_2_link2" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_2_link2" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_2_link2" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_2_link3" link2="panda_2_link4" reason="Adjacent" />
+    <disable_collisions link1="panda_2_link3" link2="panda_2_link6" reason="Never" />
+    <disable_collisions link1="panda_2_link3" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_2_link3" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_2_link3" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_2_link3" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_2_link3" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_2_link3" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_2_link3" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_2_link3" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_2_link3" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_2_link3" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_2_link3" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_2_link4" link2="panda_2_link5" reason="Adjacent" />
+    <disable_collisions link1="panda_2_link4" link2="panda_2_link6" reason="Never" />
+    <disable_collisions link1="panda_2_link4" link2="panda_2_link7" reason="Never" />
+    <disable_collisions link1="panda_2_link4" link2="panda_2_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_2_link4" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_2_link4" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_2_link4" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_2_link4" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_2_link4" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_2_link4" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_2_link4" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_2_link4" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_2_link4" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_2_link4" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_2_link4" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_2_link5" link2="panda_2_link6" reason="Adjacent" />
+    <disable_collisions link1="panda_2_link5" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_2_link5" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_2_link5" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_2_link5" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_2_link5" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_2_link5" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_2_link5" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_2_link5" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_2_link5" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_2_link5" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_2_link5" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_2_link6" link2="panda_2_link7" reason="Adjacent" />
+    <disable_collisions link1="panda_2_link6" link2="panda_2_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_2_link6" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_2_link6" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_2_link6" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_2_link6" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_2_link6" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_2_link6" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_2_link6" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_2_link6" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_2_link6" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_2_link7" link2="panda_2_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_2_link7" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_2_link7" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_2_link7" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_2_link7" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_2_link7" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_2_link7" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_2_link7" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_2_link7" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_2_link7" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_2_link7" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_2_link7" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_2_rightfinger" link2="panda_3_hand" reason="Never" />
+    <disable_collisions link1="panda_2_rightfinger" link2="panda_3_leftfinger" reason="Never" />
+    <disable_collisions link1="panda_2_rightfinger" link2="panda_3_link0" reason="Never" />
+    <disable_collisions link1="panda_2_rightfinger" link2="panda_3_link1" reason="Never" />
+    <disable_collisions link1="panda_2_rightfinger" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_2_rightfinger" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_2_rightfinger" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_2_rightfinger" link2="panda_3_link5" reason="Never" />
+    <disable_collisions link1="panda_2_rightfinger" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_2_rightfinger" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_2_rightfinger" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_3_hand" link2="panda_3_leftfinger" reason="Adjacent" />
+    <disable_collisions link1="panda_3_hand" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_3_hand" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_3_hand" link2="panda_3_link7" reason="Adjacent" />
+    <disable_collisions link1="panda_3_hand" link2="panda_3_rightfinger" reason="Adjacent" />
+    <disable_collisions link1="panda_3_leftfinger" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_3_leftfinger" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_3_leftfinger" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_3_leftfinger" link2="panda_3_rightfinger" reason="Default" />
+    <disable_collisions link1="panda_3_link0" link2="panda_3_link1" reason="Adjacent" />
+    <disable_collisions link1="panda_3_link0" link2="panda_3_link2" reason="Never" />
+    <disable_collisions link1="panda_3_link0" link2="panda_3_link3" reason="Never" />
+    <disable_collisions link1="panda_3_link0" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_3_link1" link2="panda_3_link2" reason="Adjacent" />
+    <disable_collisions link1="panda_3_link1" link2="panda_3_link3" reason="Default" />
+    <disable_collisions link1="panda_3_link1" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_3_link2" link2="panda_3_link3" reason="Adjacent" />
+    <disable_collisions link1="panda_3_link2" link2="panda_3_link4" reason="Never" />
+    <disable_collisions link1="panda_3_link3" link2="panda_3_link4" reason="Adjacent" />
+    <disable_collisions link1="panda_3_link3" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_3_link3" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_3_link4" link2="panda_3_link5" reason="Adjacent" />
+    <disable_collisions link1="panda_3_link4" link2="panda_3_link6" reason="Never" />
+    <disable_collisions link1="panda_3_link4" link2="panda_3_link7" reason="Never" />
+    <disable_collisions link1="panda_3_link4" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_3_link5" link2="panda_3_link6" reason="Adjacent" />
+    <disable_collisions link1="panda_3_link6" link2="panda_3_link7" reason="Adjacent" />
+    <disable_collisions link1="panda_3_link6" link2="panda_3_rightfinger" reason="Never" />
+    <disable_collisions link1="panda_3_link7" link2="panda_3_rightfinger" reason="Never" />
+</robot>

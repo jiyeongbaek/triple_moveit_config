@@ -1,0 +1,8 @@
+<KinBody name="stefan_side_chair">
+  <Body type="dynamic"> 
+    <Geom type="trimesh">
+      <Data>side_chair_modi.dae 0.001</Data>
+      <Render>side_chair_modi.dae 0.001</Render>
+    </Geom>
+  </Body>
+</KinBody>
