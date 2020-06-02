@@ -1,11 +1,11 @@
 moveit_setup_assistant_config:
   URDF:
-    package: social_env_description
-    relative_path: robots/social_env.urdf.xacro
+    package: triple_env_description
+    relative_path: robots/triple_env.urdf.xacro
     xacro_args: ""
   SRDF:
     relative_path: config/panda.srdf
   CONFIG:
-    author_name: Suhan Park
-    author_email: psh117@snu.ac.kr
-    generated_timestamp: 1590024684
+    author_name: Jiyeong Baek
+    author_email: jy951111@snu.ac.kr
+    generated_timestamp: 1591061373

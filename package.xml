@@ -1,12 +1,12 @@
 <package>
 
-  <name>social_moveit_config</name>
+  <name>triple_moveit_config</name>
   <version>0.3.0</version>
   <description>
      An automatically generated package with all the configuration and launch files for using the panda with the MoveIt! Motion Planning Framework
   </description>
-  <author email="psh117@snu.ac.kr">Suhan Park</author>
-  <maintainer email="psh117@snu.ac.kr">Suhan Park</maintainer>
+  <author email="jy951111@snu.ac.kr">Jiyeoeng Baek</author>
+  <maintainer email="jy951111@snu.ac.kr">Jiyeong Baek</maintainer>
 
   <license>BSD</license>
 
@@ -28,8 +28,8 @@
   <run_depend>xacro</run_depend>
   <!-- This package is referenced in the warehouse launch files, but does not build out of the box at the moment. Commented the dependency until this works. -->
   <!-- <run_depend>warehouse_ros_mongo</run_depend> -->
-  <build_depend>social_env_description</build_depend>
-  <run_depend>social_env_description</run_depend>
+  <build_depend>triple_env_description</build_depend>
+  <run_depend>triple_env_description</run_depend>
 
 
 </package>
