@@ -36,16 +36,18 @@
     <rosparam param="source_list">[move_group/fake_controller_joint_states]</rosparam>
     <rosparam>
     zeros:
+        panda_1_joint2: -0.785398
         panda_1_joint6: 1.570796
         panda_1_joint7: 0.785398
         panda_2_joint2: -0.785398
         panda_2_joint6: 1.570796
         panda_2_joint7: 0.785398
+        panda_3_joint2: -0.785398
         panda_3_joint6: 1.570796
         panda_3_joint7: 0.785398
         panda_1_finger_joint: 0.08
-        panda_1_finger_joint: 0.08
-        panda_2_finger_joint: 0.08</rosparam>
+        panda_2_finger_joint: 0.08
+        panda_3_finger_joint: 0.08</rosparam>
   </node>
 
   <!-- Given the published joint states, publish tf for the robot links -->

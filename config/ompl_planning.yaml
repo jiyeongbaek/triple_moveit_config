@@ -198,60 +198,8 @@ hand_1:
     - LazyPRMstar
     - SPARS
     - SPARStwo
-hand_closed_chain:
-  default_planner_config: ""
-  planner_configs:
-    - SBL
-    - EST
-    - LBKPIECE
-    - BKPIECE
-    - KPIECE
-    - RRT
-    - RRTConnect
-    - RRTstar
-    - TRRT
-    - PRM
-    - PRMstar
-    - FMT
-    - BFMT
-    - PDST
-    - STRIDE
-    - BiTRRT
-    - LBTRRT
-    - BiEST
-    - ProjEST
-    - LazyPRM
-    - LazyPRMstar
-    - SPARS
-    - SPARStwo
 panda_3:
   default_planner_config: RRTConnect
-  planner_configs:
-    - SBL
-    - EST
-    - LBKPIECE
-    - BKPIECE
-    - KPIECE
-    - RRT
-    - RRTConnect
-    - RRTstar
-    - TRRT
-    - PRM
-    - PRMstar
-    - FMT
-    - BFMT
-    - PDST
-    - STRIDE
-    - BiTRRT
-    - LBTRRT
-    - BiEST
-    - ProjEST
-    - LazyPRM
-    - LazyPRMstar
-    - SPARS
-    - SPARStwo
-panda_closed_chain:
-  default_planner_config: ""
   planner_configs:
     - SBL
     - EST
@@ -328,8 +276,8 @@ hand_3:
     - LazyPRMstar
     - SPARS
     - SPARStwo
-panda_chair_up:
-  default_planner_config: None
+panda_arms:
+  default_planner_config: ""
   planner_configs:
     - SBL
     - EST
@@ -354,8 +302,34 @@ panda_chair_up:
     - LazyPRMstar
     - SPARS
     - SPARStwo
-hand_chair_up:
+panda_hands:
   default_planner_config: ""
+  planner_configs:
+    - SBL
+    - EST
+    - LBKPIECE
+    - BKPIECE
+    - KPIECE
+    - RRT
+    - RRTConnect
+    - RRTstar
+    - TRRT
+    - PRM
+    - PRMstar
+    - FMT
+    - BFMT
+    - PDST
+    - STRIDE
+    - BiTRRT
+    - LBTRRT
+    - BiEST
+    - ProjEST
+    - LazyPRM
+    - LazyPRMstar
+    - SPARS
+    - SPARStwo
+base:
+  default_planner_config: None
   planner_configs:
     - SBL
     - EST
